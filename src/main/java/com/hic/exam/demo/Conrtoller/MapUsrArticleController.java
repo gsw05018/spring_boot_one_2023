@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hic.exam.demo.util.Util;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Controller
 public class MapUsrArticleController {
 	int articleLastId = 0;
@@ -13,94 +17,50 @@ public class MapUsrArticleController {
 
 	@RequestMapping("/mapUsr/article/doWrite")
 	@ResponseBody
-	public String doWrite(String title, String body) {
+	public ResulData doWrite(String title, String body) {
 		int id = articleLastId +1; 
 		String regDate = Util.getNowDateStr();
 		String updateDate = Util.getNowDateStr();
 		
+		Article article = new Article(id, regDate, updateDate, title, body);
 		
 		articleLastId = id;
 		
-		return id + "번 글이 작성되었습니다";
+		return new ResulData("S-1", id + "번 글이 생성되었습니다", article);
 
 	}
+	
+//	@RequestMapping("/mapUsr/article/showList")
+//	@ResponseBody
+//	public List<Article> showList(){
+//		
+//		Article articles; ;
+//		
+//		
+//		
+//	} 
 }
 
-class Article{
-	
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+class ResulData{
+	private String ResulData;
+	private String mas;
+	private Article article;
+}
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+class Article {
+
 	private int id;
 	private String regDate;
 	private String updateDate;
 	private String title;
 	private String body;
-	
-	Article(int id, String regDate, String updateDate, String title, String body){
-		this.id = id;
-		this.regDate = regDate;
-		this.updateDate = updateDate;
-		this.title = title;
-		this.body = body;
-		
-	}
 
 	
-	@Override
-	public String toString() {
-		return "Article [id=" + id + ", regDate=" + regDate + ", updateDate=" + updateDate + ", title=" + title
-				+ ", body=" + body + "]";
-	}
 
-
-	public int getId() {
-		return id;
-	}
-
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-
-	public String getRegDate() {
-		return regDate;
-	}
-
-
-	public void setRegDate(String regDate) {
-		this.regDate = regDate;
-	}
-
-
-	public String getUpdateDate() {
-		return updateDate;
-	}
-
-
-	public void setUpdateDate(String updateDate) {
-		this.updateDate = updateDate;
-	}
-
-
-	public String getTitle() {
-		return title;
-	}
-
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-
-	public String getBody() {
-		return body;
-	}
-
-
-	public void setBody(String body) {
-		this.body = body;
-	}
-	
-	
-	
-	
 }
