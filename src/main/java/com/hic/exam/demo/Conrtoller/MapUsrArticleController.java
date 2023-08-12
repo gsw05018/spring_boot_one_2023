@@ -4,11 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hic.exam.demo.Dto.Article;
+import com.hic.exam.demo.Dto.ResulData;
 import com.hic.exam.demo.util.Util;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Controller
 public class MapUsrArticleController {
@@ -26,7 +24,7 @@ public class MapUsrArticleController {
 		
 		articleLastId = id;
 		
-		return new ResulData("S-1", id + "번 글이 생성되었습니다", article);
+		return new ResulData("S-1", id + "번 글이 생성되었습니다",  "aritcle", article);
 
 	}
 	
@@ -41,26 +39,5 @@ public class MapUsrArticleController {
 //	} 
 }
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-class ResulData{
-	private String ResulData;
-	private String mas;
-	private Article article;
-}
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-class Article {
 
-	private int id;
-	private String regDate;
-	private String updateDate;
-	private String title;
-	private String body;
-
-	
-
-}
