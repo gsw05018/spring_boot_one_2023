@@ -18,8 +18,12 @@ public class ArticleService {
 
 	// write 함수
 	public ResultData writeArticle(String title, String body) {
+		int memberId = 1;
+		int boardId = 1;
+		
+		articleDao.writeArticle(boardId, memberId, title, body);
 
-		int id = articleDao.writeArticle(title, body);
+		int id = 1;
 
 		return new ResultData("F-1", id + "번 게시물이 작성되었습니다", "id", id);
 	}
@@ -36,7 +40,7 @@ public class ArticleService {
 		return new ResultData("F-1", id + "번 글이 수정되었습니다", "id", id);
 	}
 
-	//delete
+	// delete
 	public ResultData deleteArticleById(int id) {
 
 		Article article = getArticleId(id);
@@ -58,5 +62,4 @@ public class ArticleService {
 		return articleDao.getArticles();
 	}
 
-	
 }
