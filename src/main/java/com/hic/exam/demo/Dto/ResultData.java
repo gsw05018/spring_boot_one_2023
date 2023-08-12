@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResulData {
+public class ResultData {
 	public String resultCode;
 	public String msg;
 	public Map<String, Object> body;
 
-	public ResulData(String resultCode, String msg, Object... args) {
+	public ResultData(String resultCode, String msg, Object... args) {
 		this.resultCode = resultCode;
 		this.msg = msg;
 		this.body = Util.mapOf(args);
