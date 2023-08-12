@@ -79,6 +79,36 @@ public class MapUsrArticleController {
 		
 	}
 	
+	@RequestMapping("/mapUsr/article/doModify")
+	@ResponseBody
+	public ResulData doModify(int id,String title, String body){
+		
+		boolean article = modifyArticle(id, title, body);
+		
+		if(article == false) {
+			return new ResulData("F-1", id + "번 글이 존재하지 않습니다", "id", id);
+		}
+		
+		return new ResulData("S-1", id + "번 글이 수정되었습니다", "article", getArticleId(id));
+		
+	}
+	
+	//modifyArticle 함수
+	private boolean modifyArticle(int id, String title, String body) {
+		
+		Article article = getArticleId(id);
+		
+		if(article == null) {
+			return false;
+			
+		}
+		
+		article.setTitle(title);
+		article.setBody(body);
+		article.setUpdateDate(Util.getNowDateStr());
+		return true;
+	}
+
 	//게시물 삭제할 번호 찾는 함수
 	private boolean getDeleteId(int id) {
 		for(Article article : articles) {
