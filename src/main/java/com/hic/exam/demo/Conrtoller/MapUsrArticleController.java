@@ -1,5 +1,7 @@
 package com.hic.exam.demo.Conrtoller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +16,7 @@ import com.hic.exam.demo.util.Util;
 public class MapUsrArticleController {
 	@Autowired
 	private ArticleService articleService;
-	
+
 	// write
 	@RequestMapping("/mapUsr/article/doWrite")
 	@ResponseBody
@@ -25,68 +27,72 @@ public class MapUsrArticleController {
 		if (Util.isEmpty(body)) {
 			return new ResultData("F-2", "내용을 입력해주세요");
 		}
-		int id = articleService.writeArticle(title, body);
-		Article article = articleService.getArticleId(id);
-		return new ResultData("S-1", id + "번 글이 생성되었습니다", "aritcle", article);
+
+		return articleService.writeArticle(title, body);
 
 	}
 
-	// write 함수
-	
 	// detail
 	@RequestMapping("/mapUsr/article/getArticle")
 	@ResponseBody
-	public ResultData getArticle(int id) {
+	public ResultData getArticle(Integer id) {
 		if (Util.isEmpty(id)) {
 			return new ResultData("F-1", "번호를 입력해주세요.");
 		}
 		Article article = articleService.getArticleId(id);
 
-		if (article == null) {
+		if (article.id != id) {
 			return new ResultData("F-1", id + "번 글이 존재하지 않습니다", "id", id);
 		}
 
 		return new ResultData("S-1", id + "번 글입니다", "article", article);
 
 	}
+	
+	//list
+	@RequestMapping("/mapUsr/article/getArticles")
+	@ResponseBody
+	public List<Article> getArticles(){
+		
+		return articleService.getArticles();
+	}
 
 	// delete
 	@RequestMapping("/mapUsr/article/doDelete")
 	@ResponseBody
-	public ResultData doDelete(int id) {
+	public ResultData doDelete(Integer id) {
 		if (Util.isEmpty(id)) {
 			return new ResultData("F-1", "번호를 입력해주세요.");
 		}
-		boolean deleted = articleService.getDeleteId(id);
+		Article article = articleService.getArticleId(id);
 
-		if (deleted == false) {
-			return new ResultData("F-1", id + "번이 존재하지 않습니다", "id", id);
+		if (article == null) {
+			return new ResultData("s-1", id + "번이 존재하지 않습니다.", "id", id);
+
 		}
 
-		return new ResultData("s-1", id + "번이 삭제되었습니다", "id", id);
-
+		return articleService.deleteArticleById(id);
 	}
 
 	// modify
 	@RequestMapping("/mapUsr/article/doModify")
 	@ResponseBody
-	public ResultData doModify(int id, String title, String body) {
-		if(Util.isEmpty(id)) {
+	public ResultData doModify(Integer id, String title, String body) {
+		if (Util.isEmpty(id)) {
 			return new ResultData("F-1", "번호를 입력해주세요.");
-		}if(Util.isEmpty(title)) {
+		}
+		if (Util.isEmpty(title)) {
 			return new ResultData("F-2", "제목를 입력해주세요.");
-		}if(Util.isEmpty(body)) {
+		}
+		if (Util.isEmpty(body)) {
 			return new ResultData("F-3", "내용를 입력해주세요.");
 		}
-		boolean article = articleService.modifyArticle(id, title, body);
+		Article article = articleService.getArticleId(id);
 
-		if (article == false) {
-			return new ResultData("F-1", id + "번 글이 존재하지 않습니다", "id", id);
+		if (article == null) {
+			return new ResultData("S-1", id + "번 글이 존재하지 않습니다", "id", id);
 		}
-
-		return new ResultData("S-1", id + "번 글이 수정되었습니다", "article", articleService.getArticleId(id));
-
+		return articleService.modifyArticle(id, title, body);
 	}
 
-	
 }
