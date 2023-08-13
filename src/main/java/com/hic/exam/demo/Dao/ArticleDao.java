@@ -24,4 +24,6 @@ public interface ArticleDao {
 	
 	@Select("SELECT * FROM article")
 	List<Article> getArticles() ;
+	
+	int getLastInsertId();
 }

@@ -8,9 +8,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Article {
-	public int id;
-	public String regDate;
-	public String updateDate;
-	public String title;
-	public String body;
+	private int id;
+	private String regDate;
+	private String updateDate;
+	private int boardId;
+	private int memberId;
+	private String title;
+	private String body;
+	private boolean blindStatus;
+    private String blindDate;
+    private boolean delStatus;
+    private String delDate;
+    private int hitCount;
+    private int repliesCount;
+    private int likeCount;
+    private int dislikeCount;
 }
+

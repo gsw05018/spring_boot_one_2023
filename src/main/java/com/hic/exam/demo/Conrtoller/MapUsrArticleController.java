@@ -41,7 +41,7 @@ public class MapUsrArticleController {
 		}
 		Article article = articleService.getArticleId(id);
 
-		if (article.id != id) {
+		if (article == null) {
 			return new ResultData("F-1", id + "번 글이 존재하지 않습니다", "id", id);
 		}
 

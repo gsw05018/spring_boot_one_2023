@@ -11,6 +11,13 @@
 		WHERE A.id = #{id}
 	</select>
 
+	<select id="getLastInsertId" resultType="int">
+		SELECT LAST_INSERT_ID()
+	</select>
+
+	
+	
+
 	<update id="modifyArticle">
 		UPDATE article
 		SET updateDate = NOW(),
@@ -30,7 +37,7 @@
 		body = #{body}
 	</insert>
 
-	<update id="">
+	<update id="deleteArticleById">
 		UPDATE article
 		SET delStatus = 1,
 		delDate = NOW()

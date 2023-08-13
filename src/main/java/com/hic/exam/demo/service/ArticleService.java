@@ -23,7 +23,7 @@ public class ArticleService {
 		
 		articleDao.writeArticle(boardId, memberId, title, body);
 
-		int id = 1;
+		int id = articleDao.getLastInsertId();
 
 		return new ResultData("F-1", id + "번 게시물이 작성되었습니다", "id", id);
 	}
@@ -32,7 +32,7 @@ public class ArticleService {
 	public ResultData modifyArticle(int id, String title, String body) {
 
 		Article article = getArticleId(id);
-		if (article == null) {
+		if ( isEmpty(article)) {
 			return new ResultData("S-1", id + "번이 존재하지 않습니다", "id", id);
 		}
 		articleDao.modifyArticle(id, title, body);
@@ -40,11 +40,20 @@ public class ArticleService {
 		return new ResultData("F-1", id + "번 글이 수정되었습니다", "id", id);
 	}
 
+	private boolean isEmpty(Article article) {
+		if(article == null) {
+			return true;
+		}else if(article.isDelStatus()) {
+			return true;
+		}
+		return false;
+	}
+
 	// delete
 	public ResultData deleteArticleById(int id) {
 
 		Article article = getArticleId(id);
-		if (article == null) {
+		if (isEmpty(article)) {
 			return new ResultData("S-1", id + "번이 존재하지 않습니다", "id", id);
 		}
 		articleDao.deleteArticleById(id);

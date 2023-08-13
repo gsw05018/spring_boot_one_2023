@@ -22,8 +22,16 @@ CREATE TABLE article (
     repliesCount INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '댓글수',
     likeCount INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '좋아요수',
     dislikeCount INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '싫어요수'
-);
+)ENGINE=INNODB DEFAULT CHARSET=utf8;
 
+
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+boardId = 1,
+memberId = 1,
+title = '바보',
+`body` = '내용';
 
 # 게시물 테스트 데이터 생성
 ## 1번회원이 1번 게시판에 1번글 작성
@@ -33,7 +41,7 @@ updateDate = NOW(),
 boardId = 1,
 memberId = 1,
 title = '제목1',
-`body` = '본문1';
+`body` = '내용1';
 
 ## 1번회원이 1번 게시판에 2번글 작성
 INSERT INTO article
@@ -79,6 +87,7 @@ boardId = 2,
 memberId = 2,
 title = '제목6',
 `body` = '본문6';
+
 #조회
 SELECT * FROM article
 
