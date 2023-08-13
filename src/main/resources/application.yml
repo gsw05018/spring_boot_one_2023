@@ -1,7 +1,7 @@
 server:
   port: 8011
 spring:
-  mvc:
+  mvc: 
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
