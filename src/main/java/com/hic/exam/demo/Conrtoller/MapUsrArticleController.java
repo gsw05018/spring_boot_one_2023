@@ -18,6 +18,15 @@ public class MapUsrArticleController {
 	@Autowired
 	private ArticleService articleService;
 
+	private String msgAndBack(HttpServletRequest req, String msg) {
+		
+		req.setAttribute("msg", msg);
+		
+		return "mapUsr/common/redirect";
+		
+	}
+	
+	
 	// write
 	@RequestMapping("/mapUsr/article/doWrite")
 	@ResponseBody
@@ -58,14 +67,14 @@ public class MapUsrArticleController {
 		
 		if(board == null) {
 			
-			req.setAttribute("msg",boardId + "번 게시판이 존재하지 않습니다");
-			return "mapUsr/common/redirect";
+			return msgAndBack(req, boardId + "번 게시판이 존재하지 않습니다");
 		}
 		
 		req.setAttribute("board", board);
 		
 		return "/mapUsr/article/list";
 	}
+
 
 	// delete
 	@RequestMapping("/mapUsr/article/doDelete")
