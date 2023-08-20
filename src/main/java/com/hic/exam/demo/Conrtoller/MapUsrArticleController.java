@@ -50,11 +50,10 @@ public class MapUsrArticleController {
 	}
 	
 	//list
-	@RequestMapping("/mapUsr/article/getArticles")
-	@ResponseBody
-	public List<Article> getArticles(){
+	@RequestMapping("/mapUsr/article/list")
+	public String showList(){
 		
-		return articleService.getArticles();
+		return "/mapUsr/article/list";
 	}
 
 	// delete
