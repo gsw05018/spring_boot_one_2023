@@ -1,10 +1,13 @@
 package com.hic.exam.demo.Conrtoller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hic.exam.demo.Dto.Article;
@@ -19,22 +22,22 @@ public class MapUsrArticleController {
 	private ArticleService articleService;
 
 	private String msgAndBack(HttpServletRequest req, String msg) {
-		
+
 		req.setAttribute("msg", msg);
 		req.setAttribute("historyBack", true);
-		
+
 		return "mapUsr/common/redirect";
-		
+
 	}
+
 	private String msgAndReplace(HttpServletRequest req, String msg, String replaceUrl) {
-		
+
 		req.setAttribute(msg, msg);
 		req.setAttribute(replaceUrl, replaceUrl);
 		return "mapUsr/common/redirect";
-		
+
 	}
-	
-	
+
 	// write
 	@RequestMapping("/mapUsr/article/doWrite")
 	@ResponseBody
@@ -66,27 +69,41 @@ public class MapUsrArticleController {
 		return new ResultData("S-1", id + "번 글입니다", "article", article);
 
 	}
-	
-	//list
+
+	// list
 	@RequestMapping("/mapUsr/article/list")
-	public String showList(HttpServletRequest req,int boardId){
-		
+	public String showList(HttpServletRequest req, int boardId, @RequestParam(defaultValue = "1") int page) {
+
 		Board board = articleService.getArticleByBoardId(boardId);
-		
-		if(board == null) {
-			
+
+		if (board == null) {
+
 			return msgAndBack(req, boardId + "번 게시판이 존재하지 않습니다");
 		}
-		
+
 		req.setAttribute("board", board);
-		
+
 		int totalItemsCount = articleService.getArticlesTotalCount(boardId);
-		
+
 		req.setAttribute("totalItemsCount", totalItemsCount);
+
+		// 한번에 보여 줄 수 있는 게시물 최대 개수
+		int itemsCountInAPage = 20;
+
+		int totalPage = (int) Math.ceil(totalItemsCount / (double) itemsCountInAPage);
+
+		req.setAttribute("page", page);
+		req.setAttribute("totalPage",totalPage);
+		
+		List<Article> articles = articleService.getForPrintArticles(boardId, itemsCountInAPage, page);
+		
+		System.out.println("articles : " + articles);
+		
+		req.setAttribute("articles", articles);
 		
 		return "/mapUsr/article/list";
+	
 	}
-
 
 	// delete
 	@RequestMapping("/mapUsr/article/doDelete")
@@ -94,17 +111,17 @@ public class MapUsrArticleController {
 		if (Util.isEmpty(id)) {
 			return msgAndBack(req, "id를 입력해주세요.");
 		}
-		
+
 		ResultData rd = articleService.deleteArticleById(id);
-		
-		if ( rd.isFail() ) {
+
+		if (rd.isFail()) {
 			return msgAndBack(req, rd.getMsg());
 		}
-		
+
 		String redirectUrl = "../article/list?boardId=" + rd.getBody().get("boardId");
-		
-		return msgAndReplace(req, rd.getMsg(), redirectUrl);	
-		
+
+		return msgAndReplace(req, rd.getMsg(), redirectUrl);
+
 	}
 
 	// modify

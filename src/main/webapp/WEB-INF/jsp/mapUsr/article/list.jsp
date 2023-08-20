@@ -6,10 +6,57 @@
 
 <div class="section section-article-list">
   <div class="container mx-auto">
-    <span>TOTAL ITEMS :</span>
-    <span>${totalItemsCount}</span>
+
+    <div class="total-items">
+      <span>TOTAL ITEMS :</span>
+      <span>${totalItemsCount}</span>
+    </div>
+
+    <div class="total-pages">
+      <span>TOTAL PAGES :</span>
+      <span>${totalPage}</span>
+    </div>
+
+    <div class="page">
+      <span>CURRENT PAGE :</span>
+      <span>${page}</span>
+    </div>
+
   </div>
 </div>
 
+<hr />
+<hr />
+
+<div class="articles">
+  <c:forEach items ="${articles }" var = "article">
+    <table  class = "border w-full" >
+      <tbody>
+        <tr>
+          <th >번호<th>
+          </td>${article.id }</td>
+        </tr>
+        <tr>
+          <th>작성날짜<th>
+          </td>${article.regDate }</td>
+        </tr>
+        <tr>
+          <th>수정날짜<th>
+          </td>${article.updateDate }</td>
+        </tr>
+        <tr>
+          <th>작성자<th>
+          </td>${article.memberId }</td>
+        </tr>
+        <tr>
+          <th>제목<th>
+          </td>${article.title }</td>
+        </tr>
+        
+      </tbody>
+    </table>
+
+  </c:forEach>
+</div>
 
 <%@ include file="../common/foot.jspf"%>

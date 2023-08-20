@@ -80,4 +80,11 @@ public class ArticleService {
 		return articleDao.getArticlesTotalCount(boardId);
 	}
 
+	public List<Article> getForPrintArticles(int boardId, int itemsCountInAPage, int page) {
+		int limitFrom = (page -1) * itemsCountInAPage;
+		int limitTake = itemsCountInAPage;
+		
+		return articleDao.getForPrintArticles(boardId, limitFrom, limitTake);
+	}
+
 }

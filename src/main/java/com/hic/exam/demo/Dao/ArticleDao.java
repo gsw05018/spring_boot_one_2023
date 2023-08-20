@@ -31,4 +31,6 @@ public interface ArticleDao {
 	Board getArticleByBoardId(@Param("boardId")int boardId);
 
 	int getArticlesTotalCount(@Param("boardId")int boardId);
+
+	List<Article> getForPrintArticles(@Param("boardId")int boardId, @Param("limitFrom")int limitFrom, @Param("limitTake")int limitTake);
 }
