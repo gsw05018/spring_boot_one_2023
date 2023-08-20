@@ -55,10 +55,10 @@ public class ArticleService {
 
 		Article article = getArticleId(id);
 		if (isEmpty(article)) {
-			return new ResultData("S-1", id + "번이 존재하지 않습니다", "id", id);
+			return new ResultData("F-1", id + "번이 존재하지 않습니다", "id", id);
 		}
 		articleDao.deleteArticleById(id);
-		return new ResultData("F-1", id + "번이 삭제되었습니다", "id", id);
+		return new ResultData("S-1", id + "번이 삭제되었습니다", "id", id, "boardId", article.getBoardId());
 
 	}
 

@@ -21,7 +21,15 @@ public class MapUsrArticleController {
 	private String msgAndBack(HttpServletRequest req, String msg) {
 		
 		req.setAttribute("msg", msg);
+		req.setAttribute("historyBack", true);
 		
+		return "mapUsr/common/redirect";
+		
+	}
+	private String msgAndReplace(HttpServletRequest req, String msg, String replaceUrl) {
+		
+		req.setAttribute(msg, msg);
+		req.setAttribute(replaceUrl, replaceUrl);
 		return "mapUsr/common/redirect";
 		
 	}
@@ -78,20 +86,20 @@ public class MapUsrArticleController {
 
 	// delete
 	@RequestMapping("/mapUsr/article/doDelete")
-	@ResponseBody
-	public ResultData doDelete(Integer id) {
+	public String doDelete(HttpServletRequest req, Integer id) {
 		if (Util.isEmpty(id)) {
-			return new ResultData("F-1", "번호를 입력해주세요.");
+			return msgAndBack(req, "id를 입력해주세요.");
 		}
-		Article article = articleService.getArticleId(id);
-
-		if (article == null) {
-			return new ResultData("s-1", id + "번이 존재하지 않습니다.", "id", id);
-
+		
+		ResultData rd = articleService.deleteArticleById(id);
+		
+		if ( rd.isFail() ) {
+			return msgAndBack(req, rd.getMsg());
 		}
-
-		return articleService.deleteArticleById(id);
-	}
+		
+		String redirectUrl = "../article/list?boardId=" + rd.getBody().get("boardId");
+		
+		return msgAndReplace(req, rd.getMsg(), redirectUrl);	}
 
 	// modify
 	@RequestMapping("/mapUsr/article/doModify")
