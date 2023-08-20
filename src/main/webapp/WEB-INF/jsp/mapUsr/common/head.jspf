@@ -1,13 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-
-<title>${pageTitle}</title>
 
 <!-- 모바일에서 사이트가 PC에서의 픽셀크기 기준으로 작동하게 하기(반응형 하려면 필요) -->
 <meta name="viewport"
@@ -30,6 +27,7 @@
 
 <link rel="stylesheet" href="/resource/com.css" />
 <script src="/resource/com.js" defer></script>
+<title>${titleName}</title>
 </head>
 <body>
 	<div class="site-wrap">
@@ -104,14 +102,9 @@
 			</div>
 
 		</header>
-		
+		<div class="title-bar">
+			<div class="mx-auto container">
+				${pageTitle}
+			</div>
 		</div>
     
-    <div class="title-bar">
-      <div class = "mx-auto container"></div>
-      <span><i class = "fas fa-home"></i></span>
-      <span>${pageTitle}</span>
-    </div>
-	
-</body>
-</html>
