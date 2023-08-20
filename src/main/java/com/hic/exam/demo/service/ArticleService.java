@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hic.exam.demo.Dao.ArticleDao;
 import com.hic.exam.demo.Dto.Article;
+import com.hic.exam.demo.Dto.Board;
 import com.hic.exam.demo.Dto.ResultData;
 
 @Service
@@ -69,6 +70,10 @@ public class ArticleService {
 
 	public List<Article> getArticles() {
 		return articleDao.getArticles();
+	}
+
+	public Board getArticleByBoardId(int boardId) {
+		return articleDao.getArticleByBoardId(boardId);
 	}
 
 }

@@ -9,7 +9,18 @@
 		SELECT *
 		FROM article AS A
 		WHERE A.id = #{id}
+		AND A.delStatus = 0		
 	</select>
+	
+	
+	<select id="getArticleByBoardId" resultType="Board">
+		SELECT *
+		FROM article AS B
+		WHERE B.id = #{id}
+		AND B.delStatus = 0		
+	</select>
+	
+	
 
 	<select id="getLastInsertId" resultType="int">
 		SELECT LAST_INSERT_ID()

@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.hic.exam.demo.Dto.Article;
+import com.hic.exam.demo.Dto.Board;
 
 @Mapper
 public interface ArticleDao {
@@ -26,4 +27,6 @@ public interface ArticleDao {
 	List<Article> getArticles() ;
 	
 	int getLastInsertId();
+
+	Board getArticleByBoardId(@Param("boardId")int boardId);
 }

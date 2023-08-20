@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hic.exam.demo.Dto.Article;
+import com.hic.exam.demo.Dto.Board;
 import com.hic.exam.demo.Dto.ResultData;
 import com.hic.exam.demo.service.ArticleService;
 import com.hic.exam.demo.util.Util;
@@ -49,7 +50,9 @@ public class MapUsrArticleController {
 	
 	//list
 	@RequestMapping("/mapUsr/article/list")
-	public String showList(){
+	public String showList(int boardId){
+		
+		Board board = articleService.getArticleByBoardId(boardId);
 		
 		return "/mapUsr/article/list";
 	}
