@@ -15,8 +15,8 @@
 	
 	<select id="getArticleByBoardId" resultType="Board">
 		SELECT *
-		FROM article AS B
-		WHERE B.id = #{id}
+		FROM board AS B
+		WHERE B.boardId = #{boardId}
 		AND B.delStatus = 0		
 	</select>
 	

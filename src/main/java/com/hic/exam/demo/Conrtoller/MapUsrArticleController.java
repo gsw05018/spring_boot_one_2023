@@ -1,5 +1,7 @@
 package com.hic.exam.demo.Conrtoller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,9 +52,15 @@ public class MapUsrArticleController {
 	
 	//list
 	@RequestMapping("/mapUsr/article/list")
-	public String showList(int boardId){
+	public String showList(HttpServletRequest req,int boardId){
 		
 		Board board = articleService.getArticleByBoardId(boardId);
+		
+		if(board == null) {
+			return "해당되는 게시판이 없습니다";
+		}
+		
+		req.setAttribute("board", board);
 		
 		return "/mapUsr/article/list";
 	}

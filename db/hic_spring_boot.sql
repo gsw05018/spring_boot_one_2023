@@ -96,7 +96,7 @@ SELECT LAST_INSERT_ID();
 
 
 CREATE TABLE board (
-    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '번호',
+    boardId INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '번호',
     regDate DATETIME NOT NULL COMMENT '작성날짜',
     updateDate DATETIME NOT NULL COMMENT '수정날짜',
     `name` CHAR(20) NOT NULL UNIQUE COMMENT '이름',
@@ -114,12 +114,12 @@ CREATE TABLE board (
 INSERT INTO board
 SET regDate = NOW(),
 updateDate = NOW(),
-`name` = '공지사항',
+`name` = 'NOTICE',
 `code` = 'notice';    
     
 
 INSERT INTO board
 SET regDate = NOW(),
 updateDate = NOW(),
-`name` = '자유',
+`name` = 'FREE',
 `code` = 'free';
