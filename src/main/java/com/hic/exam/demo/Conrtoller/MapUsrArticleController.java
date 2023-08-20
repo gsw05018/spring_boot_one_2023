@@ -80,6 +80,10 @@ public class MapUsrArticleController {
 		
 		req.setAttribute("board", board);
 		
+		int totalItemsCount = articleService.getArticlesTotalCount(boardId);
+		
+		req.setAttribute("totalItemsCount", totalItemsCount);
+		
 		return "/mapUsr/article/list";
 	}
 
@@ -99,7 +103,9 @@ public class MapUsrArticleController {
 		
 		String redirectUrl = "../article/list?boardId=" + rd.getBody().get("boardId");
 		
-		return msgAndReplace(req, rd.getMsg(), redirectUrl);	}
+		return msgAndReplace(req, rd.getMsg(), redirectUrl);	
+		
+	}
 
 	// modify
 	@RequestMapping("/mapUsr/article/doModify")

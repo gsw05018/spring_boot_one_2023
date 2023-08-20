@@ -21,6 +21,14 @@
 	</select>
 	
 	
+	<select id="getArticlesTotalCount" resultType="int">
+		SELECT COUNT(*) AS C
+		FROM article AS A
+		WHERE A.boardId = #{boardId}
+		AND A.delStatus = 0		
+	</select>
+	
+	
 
 	<select id="getLastInsertId" resultType="int">
 		SELECT LAST_INSERT_ID()
